@@ -1,0 +1,43 @@
+{
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "php",
+      "args": ["artisan", "boost:mcp"],
+      "description": "Laravel Boost — gives Claude access to your DB schema, routes, artisan commands, and Laravel docs for your exact installed version"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      },
+      "description": "GitHub MCP — manage repos, PRs, branches, and issues"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Filesystem access scoped to this Laravel project"
+    }
+  }
+}
+
+// OPTIONAL SERVERS — uncomment as needed:
+
+// Figma (design-to-code workflows):
+// "figma": {
+//   "command": "npx",
+//   "args": ["-y", "figma-mcp"],
+//   "env": {
+//     "FIGMA_ACCESS_TOKEN": "YOUR_FIGMA_TOKEN_HERE"
+//   }
+// }
+
+// Context7 (latest Laravel/PHP docs):
+// "context7": {
+//   "command": "npx",
+//   "args": ["-y", "@upstash/context7-mcp"]
+// }
+
+// NOTE: Keep active MCP servers under 10 and total tools under 30.
+// Every MCP server consumes context window tokens before you type your first message.
+// Disable servers not relevant to your current work session.
