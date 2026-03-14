@@ -4,7 +4,7 @@
 
 ## ⚠️ FIRST RUN INSTRUCTIONS (Read This First)
 
-If the Stack section below still contains placeholder text like "update this", run the following initialization routine before doing anything else:
+If the Stack section below still contains placeholder text, run the following initialization routine before doing anything else:
 
 1. Detect what you can automatically by reading `composer.json`, `.env`, and scanning the `app/` directory
 2. For anything you can't determine automatically, ask me directly — one question at a time, not all at once
@@ -13,10 +13,11 @@ If the Stack section below still contains placeholder text like "update this", r
 5. Confirm to me that CLAUDE.md has been updated and is ready
 
 Questions to ask me if you can't detect them automatically:
-- What frontend stack are you using? (Blade only / Livewire / Tailwind / Inertia + Vue / Inertia + React)
+- What frontend stack are you using? (Blade only / Livewire + Tailwind / Filament / Inertia + Vue / Inertia + React)
 - What is your preferred testing framework? (PHPUnit / Pest)
 - Are you using queues? If so, what driver? (Redis / Database / Sync / none)
 - What is the main purpose of this application in plain English?
+- Are there any third-party integrations or APIs this app connects to?
 - Are there any architectural decisions I should know about that aren't obvious from the code?
 
 Do not ask about things you can already detect (PHP version, Laravel version, database driver, installed packages).
@@ -25,14 +26,44 @@ Do not ask about things you can already detect (PHP version, Laravel version, da
 
 ## My Stack
 
-- **Framework**: Laravel — (auto-detect from composer.json)
+- **Framework**: Laravel — (detect actual installed version from composer.json after installation, never assume or hardcode)
 - **PHP**: (auto-detect from composer.json)
-- **Frontend**: (update: Blade / Livewire / Tailwind / Inertia + Vue / Inertia + React)
+- **Frontend**: (update: Blade / Livewire + Tailwind / Filament / Inertia + Vue / Inertia + React)
 - **Database**: (auto-detect from .env)
 - **Local Dev**: Laravel Valet + PHPStorm + TablePlus + Tinkerwell
 - **Testing**: (update: PHPUnit / Pest)
 - **Queue**: (update: Redis / Database / Sync / not used)
 - **Cache**: (auto-detect from .env)
+
+---
+
+## Laravel Installation Rule
+
+When creating a new Laravel project, always install the latest stable version by running:
+
+```bash
+composer create-project laravel/laravel app-name
+```
+
+Never hardcode a version constraint like `laravel/laravel:^11` or `laravel/laravel:^12`.
+Always let Composer resolve the latest stable release at the time of installation.
+After installation, read the actual installed version from `composer.json` and record it in the Stack section above.
+
+---
+
+## Third-Party Integrations
+
+List any external APIs or services this application connects to.
+Claude will use this to ensure all integrations follow consistent patterns,
+are routed through dedicated service classes, and that credentials are never
+hardcoded or exposed outside of .env.
+
+For each integration include:
+- What it's used for in this application
+- Where the API documentation lives
+- How it authenticates (token, OAuth, key, etc.)
+- The .env variable name(s) for credentials
+- The dedicated service class that wraps it
 
 ---
 
@@ -81,6 +112,7 @@ Do not ask about things you can already detect (PHP version, Laravel version, da
 - Don't use raw user input in queries (always use bindings)
 - Don't generate migrations without reviewing them with me first
 - Don't assume a package is available — check `composer.json` first
+- Don't hardcode a Laravel version number during installation — always let Composer resolve the latest stable release
 
 ---
 
@@ -90,6 +122,7 @@ See `.mcp.json` for full configuration. Key servers:
 
 - **laravel-boost** — DB schema, routes, artisan commands, Laravel docs for this version
 - **github** — PR and branch management
+- **context7** — current documentation for Laravel, PHP, Livewire, Filament, and other packages
 - **filesystem** — scoped read/write access to this project
 
 ---
@@ -107,6 +140,8 @@ See `.mcp.json` for full configuration. Key servers:
 
 ## Notes for Claude
 
+- Always install Laravel using `composer create-project laravel/laravel app-name` with no version constraint — never assume a version
+- Always detect the actual installed Laravel version from `composer.json` after installation
 - Always ask clarifying questions before generating migrations — schema changes are hard to undo
 - When adding packages, check if Laravel has a first-party solution first
 - Prefer Eloquent relationships over manual joins
