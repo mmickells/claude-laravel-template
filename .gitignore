@@ -1,7 +1,25 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
+# Laravel
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
 
-# Thumbnails
-._*
+# Claude Code — never commit MCP tokens
+.mcp.json
+
+# OS
+.DS_Store
+Thumbs.db
