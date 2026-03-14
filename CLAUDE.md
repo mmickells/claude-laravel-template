@@ -25,7 +25,7 @@ brief and tech stack have been approved.
 - **PHP**: (auto-detect from composer.json)
 - **Frontend**: (populated by /new-project based on app requirements)
 - **Database**: (auto-detect from .env — default MySQL)
-- **Local Dev**: Laravel Valet + PHPStorm + TablePlus + Tinkerwell
+- **Local Dev**: Laravel Valet + PHPStorm + TablePlus + Tinkerwell + Warp
 - **Testing**: Pest
 - **Queue**: (populated by /new-project based on app requirements)
 - **Cache**: (auto-detect from .env)
@@ -237,6 +237,28 @@ This project deploys via Laravel Forge on a VPS. Follow these conventions:
   Forge's deployment hooks
 - Never hard-code server paths — use Laravel's storage_path() and base_path()
 - Document any Forge-specific configuration in docs/architecture.md
+
+---
+
+## Local Development Standards
+
+This project uses **Laravel Valet** for local development.
+
+- Local site URL follows Valet convention: `[project-folder-name].test`
+- Do not use `php artisan serve` — use Valet
+- Ensure Valet is running before starting development: `valet start`
+- If the project uses queues, run the queue worker in a separate terminal:
+  ```bash
+  php artisan queue:work
+  ```
+- If the project uses the scheduler locally, run:
+  ```bash
+  php artisan schedule:work
+  ```
+- Document the local Valet domain in the project README and docs/architecture.md
+
+When generating setup instructions or README content, always reference
+Valet rather than `php artisan serve`.
 
 ---
 

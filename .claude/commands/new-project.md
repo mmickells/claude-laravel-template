@@ -96,8 +96,10 @@ Ask me:
    accessible online?
 2. Will anyone other than you need access to the production version?
 3. Do you have a domain name in mind or will that come later?
-4. Will this app need background jobs running continuously, or is
-   everything immediate and synchronous?
+4. Will this app need to run tasks in the background — for example,
+   syncing data from an external API on a schedule, sending emails
+   asynchronously, or processing uploads without making the user wait?
+   (This determines whether we need Redis queues and scheduled tasks.)
 
 ---
 

@@ -336,5 +336,35 @@ Report status of each item:
 - [ ] Project onboarded (schema, routes, packages understood)
 - [ ] Factories and seeders scaffolded
 - [ ] First worktree created and ready
+- [ ] Laravel Pint installed (`composer require laravel/pint --dev`)
+- [ ] Valet local domain noted in README (format: [project-name].test)
+- [ ] If app uses queues: queue worker documented in README local setup section
+- [ ] If app uses scheduler: scheduler command documented in README
 
 Flag anything incomplete before we start building.
+
+**Queue and Scheduler Note:**
+If this app uses queued jobs (QUEUE_CONNECTION is not sync), add this
+to the README under Local Setup:
+
+```markdown
+### Running the Queue Worker
+
+In a separate terminal window, keep this running during development:
+
+```bash
+php artisan queue:work
+```
+```
+
+If this app uses scheduled commands, add:
+
+```markdown
+### Running the Scheduler Locally
+
+In a separate terminal window:
+
+```bash
+php artisan schedule:work
+```
+```
