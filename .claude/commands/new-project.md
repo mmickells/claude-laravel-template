@@ -198,7 +198,105 @@ approach than v3. Always check before generating any Filament-specific code.
 
 ---
 
-## Phase 10 — Hand Off to Setup
+## Phase 10 — Generate Domain Agent
+
+Once the project brief is approved and the tech stack is confirmed, generate
+a domain agent file that gives Claude permanent business context for this
+project.
+
+Create `.claude/agents/domain-expert.md` with the following structure,
+populated entirely from the approved project brief and our conversation.
+Do not use placeholder text — every section must contain real information
+about this specific project and business domain:
+
+```markdown
+---
+name: domain-expert
+description: Business domain expert for [App Name]. Activate when generating
+  code that touches business logic, data models, or domain-specific terminology
+  to ensure Claude understands the business context behind the code.
+---
+
+# Domain Expert — [App Name]
+
+## What This Business Does
+
+[Plain English description of the business or organization this app serves.
+2-3 sentences. Written so a developer who knows nothing about this industry
+could understand it.]
+
+## What This App Does
+
+[Plain English description of what this specific app does within that business.
+Not technical — focused on the business problem it solves.]
+
+## Domain Vocabulary
+
+[List of domain-specific terms and what they mean in this context.
+Example for an MSP: "Managed client — a client on a monthly contract who
+receives proactive support. Break-fix client — a client billed per incident
+with no ongoing contract."]
+
+| Term | What It Means in This App |
+|------|--------------------------|
+[Populate from the discovery conversation — every domain-specific term
+that appeared should be defined here]
+
+## Key Business Rules
+
+[List of business rules that affect how the app should behave.
+These are rules Claude must know to generate correct code.
+Example: "A ticket cannot be closed if it has unbilled time entries."
+Example: "Client health score is recalculated nightly, not in real time."]
+
+- [Rule 1]
+- [Rule 2]
+- [Add as many as were revealed during discovery]
+
+## The Data Model in Business Terms
+
+[Plain English description of the main entities and how they relate —
+not as database tables, but as business concepts.
+Example: "A Customer has many Devices. Each Device belongs to exactly one
+Customer. Tickets can be linked to a Device or just to a Customer directly."]
+
+## External Systems
+
+[List of every external system this app connects to and what it means
+in business terms — not just technical details.]
+
+| System | What It Is | What We Use It For |
+|--------|-----------|-------------------|
+[Populate from the integrations section of the project brief]
+
+## What Good Looks Like
+
+[Description of what the app should feel like to use when it is working
+correctly. What would a great day using this app look like for the primary
+user? Taken directly from Phase 3 of the discovery conversation.]
+
+## Known Constraints and Non-Obvious Decisions
+
+[List of any constraints, workarounds, or non-obvious architectural decisions
+that were revealed during discovery. Things a developer would not guess from
+looking at the code alone.
+Example: "Syncro has no project module so projects are tracked as tickets
+with a special tag. Never create a separate projects table — use the existing
+ticket system."]
+
+- [Constraint or decision 1]
+- [Constraint or decision 2]
+```
+
+After generating the domain agent file, tell me:
+"I have created your domain agent at .claude/agents/domain-expert.md.
+Claude Code will automatically activate this agent when working on business
+logic and domain-specific code. You can update it any time as the business
+rules evolve — treat it as a living document."
+
+---
+
+## Phase 11 — Hand Off to Setup
 
 Once the tech stack is approved say:
 
