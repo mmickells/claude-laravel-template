@@ -1,18 +1,38 @@
 # CLAUDE.md — Laravel Project Context
 
-This file gives Claude Code persistent context about this Laravel project and the development workflow we use.
+---
+
+## ⚠️ FIRST RUN INSTRUCTIONS (Read This First)
+
+If the Stack section below still contains placeholder text like "update this", run the following initialization routine before doing anything else:
+
+1. Detect what you can automatically by reading `composer.json`, `.env`, and scanning the `app/` directory
+2. For anything you can't determine automatically, ask me directly — one question at a time, not all at once
+3. Once I answer, update this CLAUDE.md file with the correct values
+4. Remove this "First Run Instructions" section entirely after the stack is filled in
+5. Confirm to me that CLAUDE.md has been updated and is ready
+
+Questions to ask me if you can't detect them automatically:
+- What frontend stack are you using? (Blade only / Livewire / Tailwind / Inertia + Vue / Inertia + React)
+- What is your preferred testing framework? (PHPUnit / Pest)
+- Are you using queues? If so, what driver? (Redis / Database / Sync / none)
+- What is the main purpose of this application in plain English?
+- Are there any architectural decisions I should know about that aren't obvious from the code?
+
+Do not ask about things you can already detect (PHP version, Laravel version, database driver, installed packages).
 
 ---
 
 ## My Stack
 
-- **Framework**: Laravel (10, 11, or 12)
-- **PHP**: 8.1+
-- **Frontend**: Livewire / Blade / Tailwind CSS (update if using Inertia/Vue/React)
-- **Database**: MySQL / PostgreSQL / SQLite (update to match your .env)
+- **Framework**: Laravel — (auto-detect from composer.json)
+- **PHP**: (auto-detect from composer.json)
+- **Frontend**: (update: Blade / Livewire / Tailwind / Inertia + Vue / Inertia + React)
+- **Database**: (auto-detect from .env)
 - **Local Dev**: Laravel Valet + PHPStorm + TablePlus + Tinkerwell
-- **Testing**: PHPUnit / Pest
-- **Queue**: Redis / Database (update as needed)
+- **Testing**: (update: PHPUnit / Pest)
+- **Queue**: (update: Redis / Database / Sync / not used)
+- **Cache**: (auto-detect from .env)
 
 ---
 
@@ -26,18 +46,18 @@ This file gives Claude Code persistent context about this Laravel project and th
 - **Jobs** handle anything async
 - **Events/Listeners** for decoupled side effects
 
-> Update this section to reflect YOUR actual architecture decisions.
+> Update this section to reflect the actual architecture decisions for this specific project.
 
 ---
 
 ## Coding Standards
 
-- PHP 8.1+ features preferred: enums, readonly properties, intersection types, fibers
+- PHP 8.1+ features preferred: enums, readonly properties, intersection types
 - Strict types declared in all files: `declare(strict_types=1);`
 - Type hints on all method signatures (parameters + return types)
-- PHPDoc only when types can't express the intent
+- PHPDoc only when types alone can't express intent
 - Eloquent over raw queries; raw queries only for performance-critical paths
-- Prefer named arguments for clarity on methods with multiple params
+- Prefer named arguments for clarity on methods with multiple parameters
 - Early returns over nested conditionals
 
 ---
@@ -58,35 +78,38 @@ This file gives Claude Code persistent context about this Laravel project and th
 - Don't skip Form Requests for validation
 - Don't use `->get()` when you mean `->first()`
 - Don't commit `.env` changes
-- Don't use raw user input in queries (use bindings)
-- Don't generate migrations without reviewing them first
+- Don't use raw user input in queries (always use bindings)
+- Don't generate migrations without reviewing them with me first
+- Don't assume a package is available — check `composer.json` first
 
 ---
 
 ## MCP Servers Active in This Project
 
-See `.mcp.json` for the full configuration. Key servers:
+See `.mcp.json` for full configuration. Key servers:
 
-- **laravel-boost** — DB schema, routes, artisan, docs search
+- **laravel-boost** — DB schema, routes, artisan commands, Laravel docs for this version
 - **github** — PR and branch management
-- **database** — Direct DB queries (read-only)
+- **filesystem** — scoped read/write access to this project
 
 ---
 
 ## Preferred Workflow for New Features
 
-1. Start in Plan Mode — ask Claude to analyze the codebase and propose an approach before writing code
-2. Review the plan and adjust
-3. Let Claude implement in a worktree (`claude --worktree feature-name`)
-4. Review the diff before merging
-5. Run `php artisan boost:mcp` to verify nothing is broken
+1. Run `/new-feature` to start — Claude analyzes the codebase and asks questions before writing anything
+2. Review and approve the plan
+3. Claude builds in an isolated worktree (`claude --worktree feature-name`)
+4. Review the diff, run tests
+5. Run `laravel-simplifier` agent for a code review pass
+6. Merge
 
 ---
 
 ## Notes for Claude
 
-- Ask clarifying questions before generating migrations — schema changes are hard to undo
+- Always ask clarifying questions before generating migrations — schema changes are hard to undo
 - When adding packages, check if Laravel has a first-party solution first
 - Prefer Eloquent relationships over manual joins
-- When writing tests, use `pest()` syntax if Pest is installed
+- When writing tests, use Pest syntax if Pest is installed
 - Always check `composer.json` before assuming a package is available
+- Keep controllers thin — if logic is growing in a controller, move it to a Service
