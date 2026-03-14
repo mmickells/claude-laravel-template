@@ -102,6 +102,14 @@ After each file is created, briefly confirm before moving to the next.
 
 Before running tests, review for:
 
+**Code Formatting (run first):**
+Run Laravel Pint to enforce consistent code style:
+```bash
+./vendor/bin/pint
+```
+If Pint makes any changes, commit them before proceeding to the other
+checks. Never open a PR with unformatted code.
+
 **N+1 Queries:**
 - Are all relationships eager loaded with `with()`?
 - Are there any loops that trigger database queries inside them?

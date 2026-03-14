@@ -249,6 +249,11 @@ Claude must follow these rules automatically without being reminded.
 - Never commit directly to main — all work happens in a worktree branch
 - Always run tests before committing — never commit broken code
 - Write commit messages that describe why the change was made
+- Always run Laravel Pint before committing to enforce consistent code
+  formatting: `./vendor/bin/pint`
+  If Pint is not installed, install it: `composer require laravel/pint --dev`
+  Commit any formatting changes Pint makes as part of the same commit —
+  never as a separate commit
 
 ### Commit Message Format
 ```

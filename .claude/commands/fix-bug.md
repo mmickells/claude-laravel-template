@@ -65,6 +65,12 @@ introduced a regression.
 
 ## Step 5 — Post-Fix Checks
 
+**Code Formatting (run first):**
+```bash
+./vendor/bin/pint
+```
+Commit any formatting changes before proceeding.
+
 **Security check:**
 Did this fix touch any input handling, authentication, authorization,
 or data exposure? If yes, review for security implications.
