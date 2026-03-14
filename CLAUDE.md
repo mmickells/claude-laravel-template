@@ -362,6 +362,22 @@ See `.mcp.json` for full configuration. Key servers:
 
 ---
 
+## Self-Improvement Loop
+
+After any correction from the user — a wrong assumption, a repeated mistake,
+or a misunderstood pattern — do the following immediately:
+
+1. Write a new rule to `.claude/lessons.md` that would have prevented the mistake
+2. Frame it as a specific, actionable rule: start with "Never..." or "Always..."
+3. One rule per mistake — no vague reminders
+
+At the start of each session, read `.claude/lessons.md` and apply all rules
+before writing any code.
+
+The goal is to make the same mistake exactly once.
+
+---
+
 ## Notes for Claude
 
 - Always install Laravel with no version constraint —

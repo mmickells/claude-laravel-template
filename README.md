@@ -22,9 +22,12 @@ Drop this template into any Laravel project to get instant, context-aware Claude
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | Persistent project context — Claude reads this on every session |
-| `.mcp.json` | Pre-configured MCP servers: laravel-boost, github, filesystem |
+| `.mcp.json` | Pre-configured MCP servers: laravel-boost, github, context7, filesystem |
+| `.claude/commands/new-project.md` | `/new-project` — full discovery conversation to define brief and tech stack |
 | `.claude/commands/laravel-setup.md` | `/laravel-setup` — guided walkthrough for onboarding Claude to a new project |
 | `.claude/commands/new-feature.md` | `/new-feature` — structured workflow for building any new feature |
+| `.claude/commands/fix-bug.md` | `/fix-bug` — diagnose-first bug fix workflow with post-fix quality checks |
+| `.claude/lessons.md` | Self-improvement log — Claude writes rules here after any correction |
 
 ---
 
@@ -104,6 +107,19 @@ Claude will automatically pick up `CLAUDE.md` and have full context from the fir
 
 These live in `.claude/commands/` and are available as slash commands inside any Claude Code session.
 
+### `/new-project`
+
+Run this before anything else on a new project. Walks through a 6-phase discovery conversation:
+
+1. **The Problem** — what pain does this solve?
+2. **The Users** — who uses it, on what devices, at what technical level?
+3. **The Vision** — what does success look like?
+4. **The Data** — what does the app track and what external systems connect?
+5. **The Boundaries** — what is explicitly out of scope?
+6. **Deployment** — where does this live and what infrastructure does it need?
+
+Generates an approved project brief, recommends a tech stack with plain English reasoning, creates a domain agent with business context, saves everything to `docs/`, then triggers `/laravel-setup` automatically.
+
 ### `/laravel-setup`
 
 A guided, step-by-step onboarding sequence for a new project. Run this once per project to:
@@ -111,9 +127,11 @@ A guided, step-by-step onboarding sequence for a new project. Run this once per 
 1. Install and verify Laravel Boost
 2. Confirm `CLAUDE.md` is in place
 3. Audit `.mcp.json` for relevant servers
-4. Install official Laravel plugins
-5. Onboard Claude to your schema, routes, and packages
-6. Create a worktree for the first feature
+4. Verify every required API key before building
+5. Scaffold the `docs/` folder (architecture, integrations, API docs)
+6. Onboard Claude to your schema, routes, and packages
+7. Scaffold factories and seeders
+8. Create a worktree for the first feature
 
 ### `/new-feature`
 
@@ -122,9 +140,19 @@ A structured workflow for every new feature. Enforces:
 1. **Plan first** — analysis and clarifying questions before any code
 2. **Proposed approach** — files to create/modify, migrations to review, tests to write
 3. **Worktree isolation** — all work on a fresh branch, main stays clean
-4. **Build order** — migration → model → form request → service → controller → routes → tests
-5. **Review gate** — diff + test run before merging
-6. **laravel-simplifier review** — code clarity pass after approval
+4. **Build order** — migration → model → form request → service → Filament resource → tests
+5. **Pre-PR checks** — Pint formatting, N+1 queries, security, documentation
+6. **Review gate** — diff + test run before merging
+7. **laravel-simplifier review** — code clarity pass after approval
+
+### `/fix-bug`
+
+A diagnose-first bug fix workflow:
+
+1. **Understand before touching** — form a hypothesis from logs and code before any changes
+2. **Isolated worktree** — bug fix on its own branch
+3. **Post-fix checks** — Pint, security, performance, environment variables, documentation
+4. **Regression test** — write a test that would have caught this bug
 
 ---
 
@@ -177,10 +205,11 @@ Starting in Plan Mode (`Shift+Tab` to toggle) prevents wasted implementation eff
 
 | Tool | Purpose |
 |------|---------|
-| [Laravel Valet](https://laravel.com/docs/valet) | Zero-config local HTTPS |
+| [Laravel Valet](https://laravel.com/docs/valet) | Zero-config local HTTPS — use instead of `php artisan serve` |
 | [PHPStorm](https://www.jetbrains.com/phpstorm/) | IDE |
 | [TablePlus](https://tableplus.com) | Database GUI |
 | [Tinkerwell](https://tinkerwell.app) | In-app PHP REPL |
+| [Warp](https://www.warp.dev) | Terminal |
 
 ---
 
