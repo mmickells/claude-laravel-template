@@ -127,6 +127,45 @@ See `.mcp.json` for full configuration. Key servers:
 
 ---
 
+## Git Workflow
+
+Claude must follow these rules automatically without being asked. Do not wait for me to remind you to commit or push.
+
+### Commit Rules
+- Commit after every meaningful change — do not batch unrelated changes into one commit
+- Never commit directly to `main` — all work happens in a worktree branch
+- Always run tests before committing — do not commit broken code
+- Write clear commit messages that describe why the change was made, not just what changed
+
+### Commit Message Format
+```
+type: short description of what changed and why
+
+Examples:
+feat: add sync status widget to dashboard
+fix: prevent duplicate sync triggers using WithoutOverlapping middleware
+test: add regression test for duplicate sync prevention
+refactor: move sync logic from controller into SyncService
+```
+
+Types to use:
+- `feat` — new feature
+- `fix` — bug fix
+- `test` — adding or updating tests
+- `refactor` — code improvement with no behavior change
+- `chore` — config, dependencies, or tooling changes
+
+### Push Rules
+- Push to the remote branch after every commit — do not let commits pile up locally
+- After pushing, report back to me: what was committed, what branch it's on, and a link to the branch on GitHub
+
+### Pull Request Rules
+- Only open a PR when a feature or fix is fully complete and tests are passing
+- PR title must match the final commit message format
+- Always target `main`
+
+---
+
 ## Preferred Workflow for New Features
 
 1. Run `/new-feature` to start — Claude analyzes the codebase and asks questions before writing anything
