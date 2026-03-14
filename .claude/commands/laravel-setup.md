@@ -233,6 +233,44 @@ Plain English documentation of each external service this app connects to.
 - **Gotchas**: Any known issues or non-obvious behavior
 ```
 
+`docs/api.md` (only if this project exposes API endpoints):
+```markdown
+# API Documentation
+
+## Authentication
+
+[Describe how API consumers authenticate — token, OAuth, Sanctum, etc.]
+
+## Base URL
+
+Local: `http://localhost:8000/api`
+Production: `https://[domain]/api`
+
+## Endpoints
+
+### [Resource Name]
+
+#### GET /api/[resource]
+**Description:** [What this returns]
+**Authentication:** Required / Not required
+**Query Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+[Add parameters]
+
+**Response:**
+```json
+{
+  "data": [],
+  "meta": {}
+}
+```
+
+---
+
+[Add one section per resource that has API endpoints]
+```
+
 ---
 
 ## Step 10 — Onboard Claude to This Project

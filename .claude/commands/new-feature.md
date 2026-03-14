@@ -171,6 +171,10 @@ Apply suggested improvements and show what changed.
 2. Update docs/architecture.md with a plain English description of
    how this feature works if it is a significant addition
 3. Update docs/integrations.md if a new external API was added
+4. If this feature adds or changes any API endpoints, update `docs/api.md`
+   immediately. Include the route, method, authentication, parameters,
+   and an example response. An undocumented API endpoint must never be
+   merged.
 
 ---
 

@@ -197,6 +197,15 @@ Two levels of documentation are required:
 - When a major feature is completed, update docs/architecture.md with
   a plain English description of how it works
 
+**Level 3 — API Documentation (if app exposes API endpoints)**
+- Every API endpoint must be documented in `docs/api.md`
+- Documentation must include: route, method, authentication requirement,
+  all parameters with types, and an example response
+- Update `docs/api.md` as part of the same commit when a new endpoint
+  is added or an existing one changes
+- Never leave an undocumented API endpoint — if Claude adds an endpoint,
+  it documents it immediately
+
 ---
 
 ## Changelog Standards
