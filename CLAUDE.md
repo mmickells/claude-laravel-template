@@ -262,6 +262,36 @@ Valet rather than `php artisan serve`.
 
 ---
 
+## Laravel Upgrade Policy
+
+Laravel releases a new major version approximately every year (Q1).
+When a new major version is released:
+
+### How to know when to upgrade
+- Laravel News (laravel-news.com) announces new releases
+- Context7 will start returning documentation for the new version
+- composer.json will show a newer version available
+
+### Upgrade process
+1. Check the official upgrade guide at laravel.com/docs/[version]/upgrade
+2. Use Laravel Shift (laravelshift.com) for automated upgrade assistance —
+   it opens a PR with the required changes
+3. After Shift runs, review the PR carefully before merging
+4. Run the full test suite after upgrading: `php artisan test`
+5. Run Pint after upgrading: `./vendor/bin/pint`
+6. Update the Framework version in CLAUDE.md after a successful upgrade
+
+### Claude's role in upgrades
+- Never automatically upgrade Laravel without being asked
+- When asked to upgrade, always read the official upgrade guide first
+  via Context7 before making any changes
+- Always create a dedicated worktree for the upgrade:
+  `claude --worktree upgrade-laravel-[version]`
+- Never upgrade in the middle of a feature branch
+- Run the full test suite before and after to identify breakage
+
+---
+
 ## Git Workflow
 
 Claude must follow these rules automatically without being reminded.
