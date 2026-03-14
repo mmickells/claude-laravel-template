@@ -98,7 +98,59 @@ github.com/settings/tokens (needs repo + workflow scopes)
 
 ---
 
-## Step 6 — Install Official Laravel Plugins
+## Step 6 — Verify Required API Keys and Credentials
+
+This step ensures no required credentials are forgotten before building.
+A missing API key discovered mid-development causes unnecessary interruption.
+
+### Step 6a — Read .env.example for required credentials
+
+Read `.env.example` and identify every variable that:
+- Has an empty value (e.g. `SYNCRO_API_KEY=`)
+- Has a comment indicating it is required (e.g. `# Required — get from...`)
+- Is under the `# Third-Party Integrations` section
+
+List every required credential you find. For each one, show:
+- The variable name
+- What it is for (from the comment in .env.example)
+- Where to get it (if documented in .env.example or docs/integrations.md)
+
+### Step 6b — Check which credentials are already in .env
+
+Compare against the current `.env` file. Identify which required variables:
+- Are already set with a real value (not empty, not a placeholder)
+- Are missing or empty
+
+Do not display the values of any credentials — only confirm present or missing.
+
+### Step 6c — Prompt for each missing credential one at a time
+
+For each missing credential, ask me directly:
+
+"I need the [VARIABLE_NAME] to proceed. This is your [plain English
+description of what this is]. You can find it at [location if known].
+Please paste it now or type 'skip' to come back to this later."
+
+If I provide the value, write it to `.env` immediately before asking
+for the next one.
+
+If I type 'skip', note it and continue. At the end of this step, list
+any skipped credentials and warn:
+"These credentials are still missing. The app may not function correctly
+until they are added to .env. Add them before running the app."
+
+### Step 6d — Verify .env.example is complete
+
+After collecting credentials, verify that every variable in `.env` also
+exists in `.env.example` (with an empty value and a comment).
+
+If any `.env` variables are missing from `.env.example`, add them now
+with an empty value and a descriptive comment. The rule is:
+.env.example must always be a complete map of every variable .env needs.
+
+---
+
+## Step 7 — Install Official Laravel Plugins
 
 ```
 /plugin marketplace add laravel/agent-skills
@@ -108,7 +160,7 @@ github.com/settings/tokens (needs repo + workflow scopes)
 
 ---
 
-## Step 7 — Install Frontend Stack
+## Step 8 — Install Frontend Stack
 
 Based on the project brief or Step 0 answers:
 
@@ -141,7 +193,7 @@ npm install @inertiajs/react react react-dom
 
 ---
 
-## Step 8 — Create docs/ Folder Structure
+## Step 9 — Create docs/ Folder Structure
 
 Create the following documentation files if they do not exist:
 
@@ -183,7 +235,7 @@ Plain English documentation of each external service this app connects to.
 
 ---
 
-## Step 9 — Onboard Claude to This Project
+## Step 10 — Onboard Claude to This Project
 
 Run a full project onboarding in this order:
 
@@ -202,7 +254,7 @@ After completing all five, give me a summary:
 
 ---
 
-## Step 10 — Scaffold Factories and Seeders
+## Step 11 — Scaffold Factories and Seeders
 
 For every model that exists or will be created:
 1. Create a factory in `database/factories/`
@@ -214,7 +266,7 @@ to develop against without needing production data.
 
 ---
 
-## Step 11 — Create a Worktree for the First Feature
+## Step 12 — Create a Worktree for the First Feature
 
 Ask me: "What is the first feature you would like to build?"
 
@@ -228,7 +280,7 @@ Confirm directory and branch name.
 
 ---
 
-## Step 12 — Final Checklist
+## Step 13 — Final Checklist
 
 Report status of each item:
 
