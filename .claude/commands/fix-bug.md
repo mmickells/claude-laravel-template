@@ -1,7 +1,7 @@
 # Fix Bug Workflow
 
 Run this command when something is broken and needs to be fixed.
-Lighter than /new-feature but still keeps fixes isolated, diagnosed properly, and verified before merging.
+Diagnose before touching code. Keep fixes isolated. Verify thoroughly.
 
 ---
 
@@ -9,19 +9,19 @@ Lighter than /new-feature but still keeps fixes isolated, diagnosed properly, an
 
 Do NOT touch any code yet.
 
-Ask me the following if I haven't already provided this information:
-1. What is the error or unexpected behavior? (exact error message or description)
-2. Where does it happen? (which page, route, action, or command)
-3. When did it start? (after a specific change, always been there, random?)
+Ask me the following if not already provided:
+1. What is the error or unexpected behavior?
+2. Where does it happen? (page, route, action, or command)
+3. When did it start? (after a specific change, always there, random?)
 4. Can you reproduce it consistently or is it intermittent?
 
 Once I answer, use Laravel Boost and the codebase to:
-- Find the relevant files (controller, model, service, job, etc.)
-- Read the recent error log: `php artisan log:tail` or check `storage/logs/laravel.log`
+- Find the relevant files
+- Check `storage/logs/laravel.log` for the most recent related error
 - Trace the code path from where the error originates
-- Form a clear hypothesis about what is causing the problem
+- Form a clear hypothesis about the root cause
 
-Tell me your diagnosis in plain English before touching anything:
+Tell me your diagnosis in plain English:
 - What is broken
 - Why it is broken
 - What the fix will be
@@ -33,48 +33,66 @@ Wait for my confirmation before proceeding.
 
 ## Step 2 — Create an Isolated Worktree
 
-Create a worktree for this fix:
-
 ```
 claude --worktree bugfix-[short-description]
 ```
 
-Confirm the worktree and branch name before proceeding.
+Confirm worktree and branch name before proceeding.
 
 ---
 
 ## Step 3 — Apply the Fix
 
-Make only the changes needed to fix this specific problem. Do not refactor unrelated code, rename things, or improve other areas while you are in here — that belongs in a separate branch.
-
-After making the fix, explain in plain English exactly what you changed and why.
+Make only the changes needed to fix this specific problem.
+Do not refactor unrelated code or improve other areas in this branch.
+After making the fix, explain exactly what you changed and why.
 
 ---
 
 ## Step 4 — Verify the Fix
 
-1. Reproduce the original error scenario and confirm it no longer occurs
-2. Run the test suite to make sure nothing else broke:
+1. Reproduce the original scenario and confirm the error no longer occurs
+2. Run the full test suite:
 
 ```bash
 php artisan test
 ```
 
-If existing tests fail, investigate before proceeding — the fix may have introduced a regression.
+If existing tests fail, investigate before proceeding — the fix may have
+introduced a regression.
 
 ---
 
-## Step 5 — Add or Update a Test
+## Step 5 — Post-Fix Checks
 
-If a test exists that should have caught this bug, show me why it didn't and update it.
+**Security check:**
+Did this fix touch any input handling, authentication, authorization,
+or data exposure? If yes, review for security implications.
 
-If no test covers this scenario, write one now that would catch this bug if it ever regressed. A bug that gets fixed without a test can silently come back later.
+**Performance check:**
+Did this fix touch any database queries? If yes, check for N+1 issues
+and missing indexes on any affected columns.
+
+**Environment check:**
+Did this fix require any new .env variables? If yes, add them to
+.env.example immediately with a comment explaining their purpose.
+
+**Documentation check:**
+Does docs/architecture.md need to be updated to reflect what was wrong
+and how it was fixed? Update if the bug revealed a non-obvious aspect
+of how the system works.
 
 ---
 
-## Step 6 — Review and Merge
+## Step 6 — Add or Update a Test
 
-Show me the diff:
+If a test should have caught this bug, show me why it did not and update it.
+If no test covers this scenario, write one now.
+A bug fixed without a test can silently return.
+
+---
+
+## Step 7 — Review and Merge
 
 ```bash
 git diff main
@@ -84,6 +102,19 @@ Summarize:
 - What file(s) changed
 - What the fix was in one sentence
 - What test covers it now
+- Results of all post-fix checks
 
-Once I approve, push the branch and open a pull request. Use a clear PR title like:
+---
+
+## Step 8 — Update Changelog and Docs
+
+1. Add an entry to CHANGELOG.md under `[Unreleased]` → `Fixed`
+2. Update docs/architecture.md if the bug revealed something worth
+   documenting about how the system works
+
+---
+
+## Step 9 — Push and PR
+
+Once I approve, push and open a PR:
 `fix: [short description of what was broken]`
