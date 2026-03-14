@@ -3,41 +3,44 @@
     "laravel-boost": {
       "command": "php",
       "args": ["artisan", "boost:mcp"],
-      "description": "Laravel Boost — gives Claude access to your DB schema, routes, artisan commands, and Laravel docs for your exact installed version"
+      "description": "Laravel Boost — gives Claude access to DB schema, routes, artisan commands, and Laravel docs for your exact installed version. Install with: composer require laravel/boost --dev && php artisan boost:install"
     },
     "github": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "REPLACE_WITH_YOUR_GITHUB_TOKEN"
       },
-      "description": "GitHub MCP — manage repos, PRs, branches, and issues"
+      "description": "GitHub MCP — lets Claude manage repos, create PRs, push branches, and handle issues. Replace the token above with a Personal Access Token from github.com/settings/tokens (needs repo + workflow scopes)"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Context7 — provides Claude with current documentation for Laravel, PHP, Livewire, Filament, Inertia, and other packages. Prevents Claude from using outdated APIs or patterns from its training data."
     },
     "filesystem": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
-      "description": "Filesystem access scoped to this Laravel project"
+      "description": "Filesystem access scoped to this Laravel project folder"
     }
   }
 }
 
-// OPTIONAL SERVERS — uncomment as needed:
-
-// Figma (design-to-code workflows):
+// -----------------------------------------------------------------------
+// OPTIONAL SERVERS — uncomment and configure as needed
+// -----------------------------------------------------------------------
+//
+// Figma (design-to-code: converts Figma designs into Livewire/Blade components):
 // "figma": {
 //   "command": "npx",
 //   "args": ["-y", "figma-mcp"],
 //   "env": {
-//     "FIGMA_ACCESS_TOKEN": "YOUR_FIGMA_TOKEN_HERE"
+//     "FIGMA_ACCESS_TOKEN": "REPLACE_WITH_YOUR_FIGMA_TOKEN"
 //   }
 // }
-
-// Context7 (latest Laravel/PHP docs):
-// "context7": {
-//   "command": "npx",
-//   "args": ["-y", "@upstash/context7-mcp"]
-// }
-
-// NOTE: Keep active MCP servers under 10 and total tools under 30.
-// Every MCP server consumes context window tokens before you type your first message.
-// Disable servers not relevant to your current work session.
+//
+// -----------------------------------------------------------------------
+// IMPORTANT: Keep active MCP servers under 10 and total tools under 30.
+// Every server loads its tool definitions into your context window upfront.
+// Disable anything not relevant to your current work session.
+// -----------------------------------------------------------------------
