@@ -77,9 +77,24 @@ Confirm directory and branch before proceeding.
 
 ---
 
-## Step 5 — Build in This Order
+## Step 5 — Detect Stack and Build in the Correct Order
 
-Work through implementation in this sequence. Do not skip ahead:
+Before building anything, read `CLAUDE.md` and identify the frontend stack
+for this project. The build order depends on what is installed.
+
+```bash
+grep -i "frontend" CLAUDE.md
+```
+
+Then follow the appropriate build order below. Do not mix patterns —
+if the project uses Filament, use the Filament order. If it uses Blade
+or Livewire, use that order. If you are unsure, ask before proceeding.
+
+---
+
+### If Frontend is Filament
+
+Work through this sequence. Do not skip ahead:
 
 1. **Migration** — generate it, show it to me, wait for approval before
    running `php artisan migrate`. Verify all foreign keys have indexes.
@@ -87,12 +102,120 @@ Work through implementation in this sequence. Do not skip ahead:
 3. **Seeder** — add realistic fake data for this model to DatabaseSeeder
 4. **Form Request(s)** — all validation logic
 5. **Service class** — all business logic. Add class-level and method-level
-   PHPDoc comments to all public methods.
-6. **Filament Resource / Page / Widget** — use Filament patterns appropriate
-   for the installed version. Check CLAUDE.md for the recorded version.
-   Never build manual controllers and views for something Filament can handle.
-7. **Tests** — Feature tests for happy path and key edge cases.
-   Minimum: successful creation, validation failure, authorization check.
+   PHPDoc to all public methods.
+6. **Filament Resource** — for CRUD interfaces. Use the correct patterns
+   for the installed Filament version (check CLAUDE.md for recorded version).
+   Generate with: `php artisan make:filament-resource [Name] --generate`
+7. **Filament Page** — for custom non-CRUD screens if needed
+8. **Filament Widget** — for stats panels, charts, or summary data if needed
+9. **Tests** — Feature tests covering happy path, validation failure,
+   and authorization. Minimum one test per Resource.
+
+Never build a manual controller and Blade view for something Filament
+can handle natively. Always check if Filament has a built-in component
+before building custom.
+
+---
+
+### If Frontend is Livewire + Tailwind
+
+Work through this sequence. Do not skip ahead:
+
+1. **Migration** — generate it, show it to me, wait for approval before
+   running `php artisan migrate`. Verify all foreign keys have indexes.
+2. **Model** — relationships, casts, scopes, fillable. Create factory.
+3. **Seeder** — add realistic fake data for this model to DatabaseSeeder
+4. **Form Request(s)** — all validation logic
+5. **Service class** — all business logic. Add class-level and method-level
+   PHPDoc to all public methods.
+6. **Controller** — thin, delegates to service, returns view or response.
+   Use route model binding wherever possible.
+7. **Livewire Component** — for any interactive UI elements (forms, tables,
+   filters, real-time updates). Generate with:
+   `php artisan make:livewire [ComponentName]`
+8. **Blade View** — layout and static structure. Use Tailwind for all styling.
+   Never write custom CSS unless Tailwind cannot achieve the result.
+9. **Routes** — add to appropriate routes file (web.php or api.php)
+10. **Tests** — Feature tests covering happy path, validation failure,
+    and authorization.
+
+Use Livewire for interactivity. Use plain Blade for static content.
+Never use JavaScript frameworks — Livewire handles reactivity.
+
+---
+
+### If Frontend is Blade + Tailwind (no Livewire)
+
+Work through this sequence. Do not skip ahead:
+
+1. **Migration** — generate it, show it to me, wait for approval before
+   running `php artisan migrate`. Verify all foreign keys have indexes.
+2. **Model** — relationships, casts, scopes, fillable. Create factory.
+3. **Seeder** — add realistic fake data for this model to DatabaseSeeder
+4. **Form Request(s)** — all validation logic
+5. **Service class** — all business logic. Add class-level and method-level
+   PHPDoc to all public methods.
+6. **Controller** — thin, delegates to service, returns view or response.
+   Use resource controllers where appropriate:
+   `php artisan make:controller [Name]Controller --resource`
+7. **Blade View** — use Tailwind for all styling. Build layouts using
+   Blade components and slots. Never write custom CSS unless Tailwind
+   cannot achieve the result.
+8. **Routes** — add to appropriate routes file
+9. **Tests** — Feature tests covering happy path, validation failure,
+   and authorization.
+
+Keep controllers thin. If logic is growing in a controller, move it to
+a Service class immediately.
+
+---
+
+### If Frontend is Inertia + Vue
+
+Work through this sequence. Do not skip ahead:
+
+1. **Migration** — generate it, show it to me, wait for approval before
+   running `php artisan migrate`. Verify all foreign keys have indexes.
+2. **Model** — relationships, casts, scopes, fillable. Create factory.
+3. **Seeder** — add realistic fake data for this model to DatabaseSeeder
+4. **Form Request(s)** — all validation logic
+5. **Service class** — all business logic. Add PHPDoc to all public methods.
+6. **Controller** — thin, uses `Inertia::render()` to return Vue components
+   with props. Never return raw JSON from a controller unless building
+   a separate API endpoint.
+7. **Vue Component** — in `resources/js/Pages/`. Use Composition API.
+   Use Tailwind for all styling.
+8. **Shared Vue Components** — reusable UI pieces go in
+   `resources/js/Components/`
+9. **Routes** — add to web.php. Inertia handles client-side routing.
+10. **Tests** — Feature tests covering happy path, validation failure,
+    and authorization.
+
+---
+
+### If Frontend is Inertia + React
+
+Same order as Inertia + Vue above, but:
+- Components go in `resources/js/Pages/` as `.tsx` files
+- Use functional components with hooks
+- Shared components go in `resources/js/Components/`
+- Use TypeScript if it is already configured in the project
+
+---
+
+### If Stack is Mixed or Unclear
+
+If CLAUDE.md shows a mixed stack (for example, Filament for admin plus
+Livewire for the public-facing side), ask me which pattern to use for
+this specific feature before proceeding. A single project can use multiple
+patterns in different areas — but each feature should follow one pattern
+consistently.
+
+If the stack is not recorded in CLAUDE.md, stop and ask:
+"I cannot find the frontend stack in CLAUDE.md. What frontend stack
+is this project using? I will update CLAUDE.md before proceeding."
+
+---
 
 After each file is created, briefly confirm before moving to the next.
 

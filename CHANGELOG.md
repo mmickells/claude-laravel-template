@@ -20,7 +20,7 @@ Types of changes:
 - .mcp.json with Laravel Boost, GitHub, Context7, and filesystem MCP servers
 - /new-project slash command — full discovery conversation, project brief, tech stack, domain agent
 - /laravel-setup slash command — full project onboarding including API key verification
-- /new-feature slash command — plan-first feature workflow with Pint, N+1, and security checks
+- /new-feature slash command — plan-first feature workflow with adaptive build order, Pint, N+1, and security checks
 - /fix-bug slash command — diagnose-first bug fix workflow with post-fix quality checks
 - .claude/lessons.md — self-improvement log Claude updates after any correction
 - .gitignore with .mcp.json excluded to protect GitHub tokens

@@ -140,7 +140,7 @@ A structured workflow for every new feature. Enforces:
 1. **Plan first** — analysis and clarifying questions before any code
 2. **Proposed approach** — files to create/modify, migrations to review, tests to write
 3. **Worktree isolation** — all work on a fresh branch, main stays clean
-4. **Build order** — migration → model → form request → service → Filament resource → tests
+4. **Adaptive build order** — detects frontend stack from CLAUDE.md and follows the correct sequence for Filament, Livewire, Blade, Inertia+Vue, or Inertia+React
 5. **Pre-PR checks** — Pint formatting, N+1 queries, security, documentation
 6. **Review gate** — diff + test run before merging
 7. **laravel-simplifier review** — code clarity pass after approval
