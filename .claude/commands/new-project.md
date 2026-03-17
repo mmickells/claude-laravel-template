@@ -11,6 +11,61 @@ you and ask natural follow-up questions to draw out more detail.
 
 ---
 
+## Phase 0 — Initialize Activity Log
+
+Before asking any questions, do the following:
+
+Create the `docs/` folder if it does not exist:
+```bash
+mkdir -p docs
+```
+
+Create `docs/claude-log.md` if it does not exist:
+```markdown
+# Claude Activity Log
+
+This file is maintained automatically by Claude Code.
+It records every meaningful action taken during development
+so you can always review what happened even if the IDE
+session is no longer available.
+
+Entries are appended chronologically and never deleted.
+
+---
+```
+
+Then append the first entry:
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project started
+**Notes:** Beginning discovery conversation. Log created.
+
+---
+```
+
+Also check for `tasks/lessons.md`. If it exists, read it in full
+before proceeding. These are lessons learned from previous sessions
+on this or other projects. Apply them throughout this session.
+
+If `tasks/lessons.md` does not exist, create it now:
+```markdown
+# Lessons Learned
+
+This file is maintained automatically by Claude Code.
+After any correction from the user, Claude writes a lesson here
+so the same mistake is never repeated.
+
+Read this file at the start of every session before doing anything.
+Lessons are permanent and never deleted.
+
+---
+```
+
+Now proceed to Phase 1.
+
+---
+
 ## Phase 1 — The Problem
 
 Goal: Understand why this app needs to exist.
@@ -21,6 +76,19 @@ Ask me:
 2. What does your current workaround or process look like today?
 3. What is the most painful or frustrating part of how things work now?
 4. How often does this problem come up — daily, weekly, occasionally?
+
+After receiving answers to all Phase 1 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 1 complete — The Problem
+**Problem identified:** [one sentence summary of the core problem]
+**Current workaround:** [how they handle it today]
+**Pain level:** [how often and how painful]
+
+---
+```
 
 ---
 
@@ -35,6 +103,20 @@ Ask me:
 3. What devices will they use — desktop, laptop, phone, or all of them?
 4. Will multiple people need to log in separately, or is this a
    single-user tool?
+
+After receiving answers to all Phase 2 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 2 complete — The Users
+**Primary users:** [who uses this]
+**Technical level:** [technical / non-technical / mixed]
+**Devices:** [desktop / mobile / both]
+**Multi-user:** [yes / no]
+
+---
+```
 
 ---
 
@@ -52,6 +134,20 @@ Ask me:
 4. Is there a version 1 in your mind — a smaller starting point — and a
    bigger vision for later?
 
+After receiving answers to all Phase 3 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 3 complete — The Vision
+**Core purpose:** [the one thing this app must do well]
+**Version 1 scope:** [what V1 looks like]
+**Future vision:** [where this could go]
+**Design reference:** [any apps mentioned as inspiration]
+
+---
+```
+
 ---
 
 ## Phase 4 — The Data
@@ -68,6 +164,20 @@ Ask me:
 4. Is there data that already exists somewhere that needs to be brought
    into this app?
 
+After receiving answers to all Phase 4 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 4 complete — The Data
+**Main entities:** [what the app tracks]
+**Data sources:** [manual entry / external API / both]
+**Integrations:** [external services mentioned]
+**Existing data:** [any data that needs importing]
+
+---
+```
+
 ---
 
 ## Phase 5 — The Boundaries
@@ -80,6 +190,19 @@ Ask me:
 2. What would make this too complicated or too big for a first version?
 3. Are there any hard constraints — timeline, things that must integrate
    with existing systems, anything non-negotiable?
+
+After receiving answers to all Phase 5 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 5 complete — The Boundaries
+**Out of scope:** [what this app will not do]
+**Too complex for V1:** [features deferred]
+**Hard constraints:** [non-negotiables]
+
+---
+```
 
 ---
 
@@ -100,6 +223,20 @@ Ask me:
    syncing data from an external API on a schedule, sending emails
    asynchronously, or processing uploads without making the user wait?
    (This determines whether we need Redis queues and scheduled tasks.)
+
+After receiving answers to all Phase 6 questions, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project Phase 6 complete — Deployment
+**Hosting:** [local / Forge / other]
+**Public access:** [yes / no]
+**Domain:** [known / TBD]
+**Queue needed:** [yes / no]
+
+---
+```
 
 ---
 
@@ -146,6 +283,20 @@ wrong, or that you would like to change?"
 Revise until approved. Do not move to Phase 8 until I explicitly say
 the brief is approved.
 
+After brief is approved, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Project brief approved
+**App name:** [name]
+**Core purpose:** [one sentence]
+**Key V1 features:** [bullet list]
+**Saved to:** docs/project-brief.md
+
+---
+```
+
 ---
 
 ## Phase 8 — Tech Stack Recommendation
@@ -184,6 +335,22 @@ any of these, or would you like to discuss any of the alternatives?"
 Answer all questions in plain English. Do not assume technical knowledge.
 Revise until approved.
 
+After tech stack is approved, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Tech stack approved
+**Frontend:** [choice and reason]
+**Database:** [choice]
+**Queue:** [choice]
+**Testing:** Pest
+**Deployment:** Laravel Forge
+**Notes:** [any non-standard decisions]
+
+---
+```
+
 ---
 
 ## Phase 9 — Detect Filament Version (if Filament was recommended)
@@ -197,6 +364,18 @@ composer show filament/filament | grep versions
 Note the installed version (v3 or v4) and confirm which patterns to use
 throughout the project. Filament v4 uses a different panel configuration
 approach than v3. Always check before generating any Filament-specific code.
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Filament version detected
+**Version:** [v3 / v4]
+**Notes:** Version recorded in CLAUDE.md
+
+---
+```
 
 ---
 
@@ -296,6 +475,20 @@ Claude Code will automatically activate this agent when working on business
 logic and domain-specific code. You can update it any time as the business
 rules evolve — treat it as a living document."
 
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Domain agent generated
+**File:** .claude/agents/domain-expert.md
+**Domain:** [business domain in plain English]
+**Key terms defined:** [count]
+**Business rules captured:** [count]
+
+---
+```
+
 ---
 
 ## Phase 11 — Hand Off to Setup
@@ -308,16 +501,17 @@ Once the tech stack is approved, present a final one-page summary:
 
 Save the full summary to `docs/project-brief.md` immediately.
 
-Then append the following entry to `docs/claude-log.md`
-(create the file if it does not exist):
+Then append the following entry to `docs/claude-log.md`:
 
 ```markdown
 ## [DATE TIME]
 
-**Action:** /new-project discovery complete
-**Project brief saved:** docs/project-brief.md
-**Tech stack confirmed:** [list the confirmed stack]
-**Next step:** /laravel-setup
+**Action:** /new-project complete — handing off to /laravel-setup
+**All phases completed:** yes
+**Project brief:** docs/project-brief.md
+**Domain agent:** .claude/agents/domain-expert.md
+**Log entries written:** one per phase
+**Next action:** /laravel-setup executing now
 
 ---
 ```
