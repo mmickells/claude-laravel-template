@@ -29,6 +29,21 @@ Tell me your diagnosis in plain English:
 
 Wait for my confirmation before proceeding.
 
+After I confirm the diagnosis, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /fix-bug diagnosis confirmed
+**Problem:** [what is broken in one sentence]
+**Root cause:** [why it is broken]
+**Proposed fix:** [what will be changed]
+**Risk of side effects:** [yes — description / low]
+**Files to touch:** [list]
+
+---
+```
+
 ---
 
 ## Step 2 — Create an Isolated Worktree
@@ -75,6 +90,20 @@ php artisan test
 
 If existing tests fail, investigate before proceeding — the fix may have
 introduced a regression.
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /fix-bug tests run after fix
+**Original error reproduced and confirmed fixed:** [yes / no]
+**Full test suite result:** [passed / failed]
+**Regressions introduced:** [yes — description / none]
+**Notes:** [anything worth noting]
+
+---
+```
 
 ---
 
