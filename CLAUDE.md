@@ -423,6 +423,27 @@ The goal is to make the same mistake exactly once.
 
 ## Notes for Claude
 
+- The setup chain is mandatory and must complete in full before any
+  building begins: /new-project → docs/project-brief.md saved →
+  /laravel-setup → full checklist confirmed → docs/claude-log.md created
+- Never begin building features if /laravel-setup has not completed
+  its full checklist — if unsure whether setup ran, check
+  docs/claude-log.md for a setup entry before proceeding
+- Never assume the GitHub MCP is connected — verify it explicitly
+  during /laravel-setup and stop loudly if it fails
+- Never leave the generic Laravel README — replace it with a
+  project-specific README with shields.io badges during /laravel-setup
+- Never skip a log entry — append to docs/claude-log.md after every
+  meaningful action without exception
+- If /new-project completes but /laravel-setup was not triggered,
+  tell the user immediately rather than proceeding with any building
+- A project is not ready to build until all of the following exist
+  and are confirmed:
+  - docs/project-brief.md with real project content
+  - docs/claude-log.md with at least one setup entry
+  - A project-specific README.md with shields.io badges
+  - Confirmed GitHub MCP connection
+  - Completed /laravel-setup checklist
 - Always install Laravel with no version constraint —
   `composer create-project laravel/laravel app-name`
 - Always detect actual installed versions from composer.json — never assume
