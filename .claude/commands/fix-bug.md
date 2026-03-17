@@ -7,6 +7,25 @@ Diagnose before touching code. Keep fixes isolated. Verify thoroughly.
 
 ## Step 1 — Understand the Problem First
 
+Before diagnosing anything, read `tasks/lessons.md` if it exists:
+
+```bash
+cat tasks/lessons.md 2>/dev/null
+```
+
+If it exists, read it and apply all lessons. Pay special attention
+to any lessons about the type of bug being reported. Append a log entry:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Lessons learned reviewed before /fix-bug
+**Lessons found:** [count or "none yet"]
+**Relevant lessons for this bug:** [list or "none"]
+
+---
+```
+
 Do NOT touch any code yet.
 
 Ask me the following if not already provided:

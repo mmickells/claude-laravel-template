@@ -22,7 +22,8 @@ Types of changes:
 - /laravel-setup slash command — full project onboarding including API key verification
 - /new-feature slash command — plan-first feature workflow with adaptive build order, Pint, N+1, and security checks
 - /fix-bug slash command — diagnose-first bug fix workflow with post-fix quality checks
-- .claude/lessons.md — self-improvement log Claude updates after any correction
+- .claude/lessons.md — self-improvement log (per-session corrections)
+- tasks/lessons.md — persistent lessons learned file read at every session start
 - .gitignore with .mcp.json excluded to protect GitHub tokens
 - .env.example template maintained as integrations are added
 - CHANGELOG.md following Keep a Changelog format

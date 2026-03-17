@@ -8,6 +8,24 @@ and a thorough quality review before merging.
 
 ## Step 1 — Check the Project Brief
 
+Before checking the project brief, read `tasks/lessons.md` if it exists:
+
+```bash
+cat tasks/lessons.md 2>/dev/null
+```
+
+If it exists, read it and apply all lessons to this session. Append a log entry:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Lessons learned reviewed before /new-feature
+**Lessons found:** [count or "none yet"]
+**Relevant lessons for this feature:** [list or "none"]
+
+---
+```
+
 Check if `docs/project-brief.md` exists and read it:
 
 ```bash

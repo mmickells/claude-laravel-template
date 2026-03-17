@@ -56,6 +56,34 @@ If it DOES exist, append:
 ---
 ```
 
+Also check for `tasks/lessons.md`:
+- If it exists: read it in full and apply all lessons before proceeding
+- If it does not exist: create it now with the standard header:
+
+```markdown
+# Lessons Learned
+
+This file is maintained automatically by Claude Code.
+After any correction from the user, Claude writes a lesson here
+so the same mistake is never repeated.
+
+Read this file at the start of every session before doing anything.
+Lessons are permanent and never deleted.
+
+---
+```
+
+Append a log entry confirming whether lessons were found:
+```markdown
+## [DATE TIME]
+
+**Action:** Lessons learned file checked
+**File exists:** [yes — count lessons / no — created]
+**Lessons applied:** [list titles or "none yet"]
+
+---
+```
+
 ---
 
 ## Step 0 — Check for Project Brief
