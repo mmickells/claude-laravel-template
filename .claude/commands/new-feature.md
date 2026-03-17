@@ -63,6 +63,23 @@ Based on codebase analysis and my answers, propose a plan covering:
 Present as a numbered list. Be specific.
 Wait for my explicit approval before writing any code.
 
+After I explicitly approve the plan, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-feature plan approved
+**Feature:** [feature name]
+**Files to create:** [list]
+**Files to modify:** [list]
+**Migrations needed:** [yes — description / no]
+**Tests to write:** [list]
+**N+1 risks identified:** [yes — description / none]
+**Security considerations:** [yes — description / none]
+
+---
+```
+
 ---
 
 ## Step 4 — Create a Worktree
@@ -277,6 +294,21 @@ php artisan test
 ```
 
 If tests fail, fix them before proceeding. Show output either way.
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-feature tests run
+**Result:** [passed / failed]
+**Tests written:** [count]
+**Test files:** [list]
+**Failures:** [list any failures or "none"]
+**Notes:** [anything worth noting about test coverage]
+
+---
+```
 
 ---
 
