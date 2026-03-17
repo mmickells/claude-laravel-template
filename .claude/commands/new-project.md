@@ -300,19 +300,36 @@ rules evolve — treat it as a living document."
 
 ## Phase 11 — Hand Off to Setup
 
-Once the tech stack is approved say:
-
-"Great — we have everything we need to start building. Here is a summary
-of what we decided:"
-
-Present a final one-page summary:
+Once the tech stack is approved, present a final one-page summary:
 - Project brief (condensed to 5 bullets)
 - Confirmed tech stack with brief reason for each choice
 - Top 3 features to build first
-- Deployment target and any infrastructure notes
+- Deployment target and infrastructure notes
 
-Then say:
-"I am going to save this as docs/project-brief.md so we never lose this
-context. Then I will run /laravel-setup with everything already loaded."
+Save the full summary to `docs/project-brief.md` immediately.
 
-Save the full summary to `docs/project-brief.md` then trigger `/laravel-setup`.
+Then append the following entry to `docs/claude-log.md`
+(create the file if it does not exist):
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-project discovery complete
+**Project brief saved:** docs/project-brief.md
+**Tech stack confirmed:** [list the confirmed stack]
+**Next step:** /laravel-setup
+
+---
+```
+
+**MANDATORY: Execute /laravel-setup immediately after saving the log.**
+Do not summarize. Do not ask questions. Do not tell the user you are
+about to run it. Do not wait for further input. Just run it.
+
+If /laravel-setup cannot be executed for any reason, stop and tell
+the user:
+"I was unable to automatically trigger /laravel-setup. Please type
+/laravel-setup now to complete project setup."
+
+Do not proceed with any building or coding until /laravel-setup has
+fully completed its entire checklist and all items are confirmed.
