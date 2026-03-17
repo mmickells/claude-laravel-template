@@ -75,6 +75,21 @@ claude --worktree feature-[descriptive-name]
 
 Confirm directory and branch before proceeding.
 
+After creating the worktree, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-feature worktree created
+**Feature:** [feature name from the plan]
+**Worktree:** [worktree directory]
+**Branch:** [branch name]
+**Plan approved:** yes
+**Notes:** [summary of the approved plan in 2-3 sentences]
+
+---
+```
+
 ---
 
 ## Step 5 — Detect Stack and Build in the Correct Order
@@ -316,3 +331,19 @@ Once I approve the diff and tests are passing:
 
 If yes, push and create a PR targeting main:
 `feat: [short description of what was added]`
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /new-feature complete — PR opened
+**Feature:** [feature name]
+**Files changed:** [list all files created or modified]
+**Commit:** [final commit hash and message]
+**PR:** [PR URL]
+**Tests:** [passed / failed]
+**Notes:** [anything worth noting about the implementation]
+
+---
+```

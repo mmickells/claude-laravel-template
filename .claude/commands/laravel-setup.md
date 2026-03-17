@@ -291,6 +291,30 @@ Plain English documentation of each external service this app connects to.
 - **Gotchas**: Any known issues or non-obvious behavior
 ```
 
+`docs/claude-log.md`:
+```markdown
+# Claude Activity Log
+
+This file is maintained automatically by Claude Code.
+It records every meaningful action taken during development
+so you can always review what happened even if the IDE
+session is no longer available.
+
+Entries are appended chronologically and never deleted.
+
+---
+
+## [DATE TIME]
+
+**Action:** Project initialized via /laravel-setup
+**Setup source:** /new-project discovery brief at docs/project-brief.md
+**Tech stack:** [confirmed stack from project brief]
+**GitHub repository:** [URL]
+**Notes:** Initial project setup complete. All checklist items confirmed.
+
+---
+```
+
 `docs/api.md` (only if this project exposes API endpoints):
 ```markdown
 # API Documentation

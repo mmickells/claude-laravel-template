@@ -208,6 +208,49 @@ Two levels of documentation are required:
 
 ---
 
+## Claude Activity Log
+
+Every project maintains a `docs/claude-log.md` file that records
+everything Claude Code does. This log exists so you can always review
+what happened even if the IDE session scrolls away or closes.
+
+### What gets logged
+Claude must append a log entry after every one of these events:
+- /new-project completes and hands off to /laravel-setup
+- /laravel-setup completes each major step
+- /laravel-setup checklist is fully completed
+- /new-feature plan is approved and worktree is created
+- /new-feature build is complete and PR is opened
+- /fix-bug diagnosis is confirmed and fix is applied
+- /fix-bug PR is opened
+- Any MCP verification (pass or fail)
+- Any commit and push to GitHub
+- Any error or unexpected situation that caused a stop
+
+### Log entry format
+
+```markdown
+## [DATE TIME]
+
+**Action:** [What happened in plain English]
+**Files changed:** [List files created or modified, or "none"]
+**Commit:** [hash and message, or "none"]
+**Push:** [confirmed / failed / not applicable]
+**Notes:** [Any relevant context, decisions made, or issues encountered]
+
+---
+```
+
+### Log rules
+- Never delete entries from the log — it is append-only
+- Always include the date and time at the start of each entry
+- Keep entries concise but complete enough to understand what happened
+- If a step was skipped explain why in the notes
+- If something failed explain what failed and what was done about it
+- The log is committed to git so it travels with the project
+
+---
+
 ## Changelog Standards
 
 Maintain CHANGELOG.md using Keep a Changelog format:

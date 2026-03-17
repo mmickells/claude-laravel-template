@@ -47,6 +47,21 @@ Make only the changes needed to fix this specific problem.
 Do not refactor unrelated code or improve other areas in this branch.
 After making the fix, explain exactly what you changed and why.
 
+After applying the fix, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /fix-bug fix applied
+**Problem:** [what was broken in one sentence]
+**Root cause:** [why it was broken]
+**Fix:** [what was changed to fix it]
+**Files changed:** [list files modified]
+**Notes:** [anything non-obvious about the fix]
+
+---
+```
+
 ---
 
 ## Step 4 — Verify the Fix
@@ -124,3 +139,18 @@ Summarize:
 
 Once I approve, push and open a PR:
 `fix: [short description of what was broken]`
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /fix-bug complete — PR opened
+**Fix:** [one sentence description]
+**Regression test:** [test name or description]
+**Commit:** [commit hash and message]
+**PR:** [PR URL]
+**Tests:** [passed / failed]
+
+---
+```
