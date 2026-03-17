@@ -86,15 +86,73 @@ cannot be safely un-committed.
 
 ---
 
-## Step 5 — Review Active MCP Servers
+## Step 5 — Verify MCP Servers Are Connected and Working
 
-Show the current `.mcp.json`. Check:
-- `laravel-boost` is present and configured
-- GitHub token has been replaced (not REPLACE_WITH_YOUR_GITHUB_TOKEN)
-- No more than 10 servers are active
+This step is mandatory. Do not skip it. Do not proceed to Step 6
+until all checks pass. Log every result.
 
-If the GitHub token is still a placeholder, remind me to generate one at:
-github.com/settings/tokens (needs repo + workflow scopes)
+### Step 5a — Verify Laravel Boost is responding
+
+```bash
+php artisan boost:mcp
+```
+
+If this fails, stop and tell the user:
+"Laravel Boost is not responding. Run the following before proceeding:
+composer require laravel/boost --dev
+php artisan boost:install"
+
+Do not continue until Boost is confirmed working.
+
+### Step 5b — Verify GitHub MCP is connected
+
+Test the GitHub MCP by fetching basic repository information.
+If the connection fails or returns an error, stop immediately and
+tell the user:
+
+"The GitHub MCP is not connected. Automatic commits and pushes will
+not work until this is resolved. Check the following:
+
+1. Open .mcp.json and confirm GITHUB_PERSONAL_ACCESS_TOKEN contains
+   a real token — not the placeholder text
+2. Confirm the token has not expired — tokens expire silently
+3. Confirm the token has repo and workflow scopes
+4. Generate a new token at github.com/settings/tokens if needed
+
+Do not proceed with the build until the GitHub MCP is confirmed
+working. Automatic commits and pushes are required and cannot
+be skipped."
+
+### Step 5c — Create GitHub repository if it does not exist
+
+Check if a remote GitHub repository exists:
+
+```bash
+git remote -v
+```
+
+If no remote exists, create one now using the GitHub MCP:
+- Name matches the project folder name
+- Private by default unless the user specifies otherwise
+- Push the initial commit immediately after creating
+- Report the repository URL to the user
+
+If a remote already exists, confirm it is reachable and report the URL.
+
+### Step 5d — Log MCP verification results
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** MCP server verification
+**Laravel Boost:** [connected / failed]
+**GitHub MCP:** [connected / failed]
+**GitHub repository:** [URL or "created new"]
+
+---
+```
 
 ---
 
