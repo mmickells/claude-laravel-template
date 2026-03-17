@@ -9,6 +9,55 @@ confirmation before moving to the next.
 
 ---
 
+## Step 0a — Initialize Log File (Safety Check)
+
+Before doing anything else, check if `docs/claude-log.md` exists:
+
+```bash
+ls docs/claude-log.md 2>/dev/null
+```
+
+If it does NOT exist:
+- Create the `docs/` folder if needed: `mkdir -p docs`
+- Create `docs/claude-log.md` with the standard header:
+
+```markdown
+# Claude Activity Log
+
+This file is maintained automatically by Claude Code.
+It records every meaningful action taken during development
+so you can always review what happened even if the IDE
+session is no longer available.
+
+Entries are appended chronologically and never deleted.
+
+---
+```
+
+Then append:
+```markdown
+## [DATE TIME]
+
+**Action:** /laravel-setup started — log created by setup
+**Notes:** Log was not found — /laravel-setup may have been run
+  without /new-project, or this is an existing project being
+  onboarded. Log initialized now.
+
+---
+```
+
+If it DOES exist, append:
+```markdown
+## [DATE TIME]
+
+**Action:** /laravel-setup started
+**Notes:** Continuing from /new-project. Log exists.
+
+---
+```
+
+---
+
 ## Step 0 — Check for Project Brief
 
 Before doing anything else, check if `docs/project-brief.md` exists:
@@ -551,6 +600,32 @@ Report status of each item:
 - [ ] If app uses scheduler: scheduler command documented in README
 
 Flag anything incomplete before we start building.
+
+Once all checklist items are confirmed, append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** /laravel-setup complete — full checklist confirmed
+**Laravel version:** [version]
+**Frontend stack:** [stack]
+**Filament version:** [version or N/A]
+**GitHub repository:** [URL]
+**README generated:** yes — with badges
+**Factories scaffolded:** [yes / partial / no]
+**First worktree:** [name and branch]
+**All checklist items:** confirmed
+**Notes:** Project is ready to build.
+
+---
+```
+
+Then commit the log:
+```bash
+git add docs/claude-log.md
+git commit -m "chore: initialize Claude activity log"
+git push
+```
 
 **Queue and Scheduler Note:**
 If this app uses queued jobs (QUEUE_CONNECTION is not sync), add this
