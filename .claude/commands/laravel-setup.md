@@ -331,7 +331,134 @@ Production: `https://[domain]/api`
 
 ---
 
-## Step 10 — Onboard Claude to This Project
+## Step 10 — Generate Project README
+
+This step is mandatory. A generic Laravel README is never acceptable.
+Do not mark this step complete until a real project README with badges
+exists and has been committed and pushed.
+
+### Step 10a — Check for project brief
+
+```bash
+cat docs/project-brief.md
+```
+
+If docs/project-brief.md does not exist or is empty, stop and tell
+the user:
+"I cannot generate the project README because docs/project-brief.md
+is missing or empty. This file should have been created by /new-project.
+Please provide the project details and I will create the brief now."
+
+Do not proceed until docs/project-brief.md has real content.
+
+### Step 10b — Detect installed versions for accurate badges
+
+Run the following to get exact installed versions:
+
+```bash
+php artisan --version
+composer show laravel/framework | grep '^versions'
+php --version
+```
+
+Also check for these if installed:
+```bash
+composer show statamic/cms | grep '^versions'
+composer show filament/filament | grep '^versions'
+composer show livewire/livewire | grep '^versions'
+```
+
+### Step 10c — Check if README is still the generic Laravel one
+
+Read the current README.md. If it contains any of the following
+it is the generic Laravel README and must be replaced:
+- "Laravel is a web application framework"
+- "Thank you for considering contributing"
+- "In order to ensure that the Laravel community"
+
+### Step 10d — Generate the README with shields.io badges
+
+Generate a complete README.md. Every section must contain real
+project information — no placeholder text of any kind.
+
+The README must start with shields.io badges before anything else.
+Generate badges for every applicable item from this list using the
+shields.io format (https://shields.io):
+
+**Always include:**
+- Laravel version: ![Laravel](https://img.shields.io/badge/Laravel-[version]-FF2D20?style=flat&logo=laravel&logoColor=white)
+- PHP version: ![PHP](https://img.shields.io/badge/PHP-[version]-777BB4?style=flat&logo=php&logoColor=white)
+- Tailwind CSS: ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+- MySQL: ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+- Laravel Forge: ![Forge](https://img.shields.io/badge/Deployed_on-Laravel_Forge-F4645F?style=flat)
+- Pest: ![Pest](https://img.shields.io/badge/Tests-Pest-16B7FB?style=flat)
+- License: ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+
+**Include if installed:**
+- Statamic: ![Statamic](https://img.shields.io/badge/Statamic-[version]-FF269E?style=flat&logo=statamic&logoColor=white)
+- Filament: ![Filament](https://img.shields.io/badge/Filament-[version]-FDAE4B?style=flat)
+- Livewire: ![Livewire](https://img.shields.io/badge/Livewire-[version]-4E56A6?style=flat)
+
+Replace [version] with the actual detected version number.
+Place all badges on a single line at the very top of the README
+before the project title.
+
+After the badges, the README must include:
+- Project name and one-sentence tagline
+- What the app does in plain English
+- Full tech stack table with actual versions
+- Prerequisites with actual version numbers
+- Complete local setup instructions referencing Valet
+- How to run tests (php artisan test)
+- How to run Pint (./vendor/bin/pint)
+- External integrations table if any exist
+- Environment variables table from .env.example
+- Page routes if applicable
+- Project structure overview
+- Deployment notes (Forge as target)
+- Link to CHANGELOG.md
+- Link to docs/project-brief.md
+
+### Step 10e — Show and confirm
+
+Show the generated README and ask:
+"Does this README accurately represent the project?
+Should I adjust anything before committing?"
+
+Wait for confirmation before committing.
+
+### Step 10f — Commit and log
+
+Once confirmed, commit immediately:
+
+```bash
+./vendor/bin/pint README.md 2>/dev/null || true
+git add README.md
+git commit -m "docs: generate project README with badges from project brief"
+git push
+```
+
+Then append to docs/claude-log.md:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Project README generated
+**Badges included:** [list the badges added]
+**Commit:** [commit hash] — docs: generate project README with badges
+**Push:** confirmed to [repository URL]
+
+---
+```
+
+If the push fails, stop and tell the user:
+"The README was committed locally but the push failed. This likely
+means the GitHub MCP connection dropped. Please check .mcp.json
+and run: git push"
+
+---
+
+## Step 11 — Onboard Claude to This Project
 
 Run a full project onboarding in this order:
 
@@ -350,7 +477,7 @@ After completing all five, give me a summary:
 
 ---
 
-## Step 11 — Scaffold Factories and Seeders
+## Step 12 — Scaffold Factories and Seeders
 
 For every model that exists or will be created:
 1. Create a factory in `database/factories/`
@@ -362,7 +489,7 @@ to develop against without needing production data.
 
 ---
 
-## Step 12 — Create a Worktree for the First Feature
+## Step 13 — Create a Worktree for the First Feature
 
 Ask me: "What is the first feature you would like to build?"
 
@@ -376,7 +503,7 @@ Confirm directory and branch name.
 
 ---
 
-## Step 13 — Final Checklist
+## Step 14 — Final Checklist
 
 Report status of each item:
 
