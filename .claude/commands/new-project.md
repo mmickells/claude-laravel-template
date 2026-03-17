@@ -274,6 +274,9 @@ Where this will live and who will access it.
 **Out of Scope:**
 What this app explicitly will not do.
 
+**Design System:**
+(Filled in during Phase 8 after tech stack is confirmed)
+
 ---
 
 Present the brief and ask:
@@ -347,6 +350,63 @@ After tech stack is approved, append to `docs/claude-log.md`:
 **Testing:** Pest
 **Deployment:** Laravel Forge
 **Notes:** [any non-standard decisions]
+
+---
+```
+
+Then ask — only if the recommended frontend includes Tailwind CSS
+(Livewire + Tailwind, Blade + Tailwind, Inertia + Vue, or Inertia + React):
+
+"Do you have an existing design system you would like to bring into this
+project? If you have a `tailwind.config.js` from another project or a
+shared design system folder, I can integrate it during setup so your
+new project starts with your established brand colors, fonts, and spacing.
+
+1. **Yes — I have a `tailwind.config.js` file.** Provide the full path
+   to the file (e.g. `/Users/you/design-tokens/tailwind.config.js`)
+2. **Yes — I have a full design system folder.** Provide the folder path.
+   I will look for `tailwind.config.js` and any Blade components to copy
+   over into the new project.
+3. **No — use standard Tailwind defaults.** We can always customize later."
+
+**If option 1 (single file path) is provided:**
+- Read the file at the given path
+- Confirm it contains a valid `tailwind.config.js` structure
+  (looks for `module.exports` or `export default` with a `theme` key)
+- If valid: tell me "Found your Tailwind config. I will apply it
+  during setup." and record the path
+- If invalid or not found: tell me what was wrong and ask again
+
+**If option 2 (folder path) is provided:**
+- Check the folder for `tailwind.config.js` — required
+- Check for a `components/` subfolder or any `.blade.php` files — optional
+- Report what was found:
+  "Found: tailwind.config.js ✓, Blade components: [count or 'none found']"
+- Record the folder path
+
+**If option 3 (defaults):**
+- Note it and move on
+
+In all cases, append a section to `docs/project-brief.md`:
+
+```markdown
+## Design System
+
+**Source:** [file path / folder path / Tailwind defaults]
+**Tailwind config:** [found at path / not provided]
+**Blade components:** [count found / none]
+**Integration:** Will be applied during /laravel-setup Step 8
+```
+
+Then append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Design system decision recorded
+**Choice:** [file path / folder path / Tailwind defaults]
+**Tailwind config validated:** [yes / no / N/A]
+**Blade components found:** [count / none / N/A]
 
 ---
 ```

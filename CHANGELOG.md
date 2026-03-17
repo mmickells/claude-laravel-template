@@ -18,7 +18,8 @@ Types of changes:
 - Initial Laravel Claude Code template
 - CLAUDE.md with persistent project context and comprehensive standards
 - .mcp.json with Laravel Boost, GitHub, Context7, and filesystem MCP servers
-- /new-project slash command — full discovery conversation, project brief, tech stack, domain agent
+- /new-project slash command — full discovery conversation, project brief, tech stack, domain agent, design system selection
+- Design system integration — bring an existing tailwind.config.js or full design system folder into any new project
 - /laravel-setup slash command — full project onboarding including API key verification
 - /new-feature slash command — plan-first feature workflow with adaptive build order, Pint, N+1, and security checks
 - /fix-bug slash command — diagnose-first bug fix workflow with post-fix quality checks

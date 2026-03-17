@@ -118,7 +118,7 @@ Run this before anything else on a new project. Walks through a 6-phase discover
 5. **The Boundaries** — what is explicitly out of scope?
 6. **Deployment** — where does this live and what infrastructure does it need?
 
-Generates an approved project brief, recommends a tech stack with plain English reasoning, creates a domain agent with business context, saves everything to `docs/`, then triggers `/laravel-setup` automatically.
+Generates an approved project brief, recommends a tech stack with plain English reasoning, asks about existing design systems (Tailwind config or full component folder), creates a domain agent with business context, saves everything to `docs/`, then triggers `/laravel-setup` automatically.
 
 ### `/laravel-setup`
 

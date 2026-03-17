@@ -326,6 +326,66 @@ composer require inertiajs/inertia-laravel
 npm install @inertiajs/react react react-dom
 ```
 
+### Step 8b — Integrate Design System (if one was provided)
+
+Check `docs/project-brief.md` for a **Design System** section.
+
+If the section shows **Tailwind defaults** or does not exist, skip this
+step entirely.
+
+If a design system path was recorded, integrate it now:
+
+**If a single `tailwind.config.js` was provided:**
+
+Read the file at the recorded path and copy its contents to
+`tailwind.config.js` in the project root, replacing the default
+Tailwind config that was generated during installation.
+
+```bash
+cp [recorded-path]/tailwind.config.js tailwind.config.js
+```
+
+Confirm the copy succeeded and show a one-line summary of what the
+config contains (e.g. "Custom colors: yes, Custom fonts: yes,
+Custom breakpoints: no").
+
+**If a full design system folder was provided:**
+
+1. Copy `tailwind.config.js` from the folder to the project root:
+   ```bash
+   cp [folder-path]/tailwind.config.js tailwind.config.js
+   ```
+
+2. If the folder contains a `components/` subfolder with `.blade.php`
+   files, copy them to `resources/views/components/`:
+   ```bash
+   cp [folder-path]/components/*.blade.php resources/views/components/
+   ```
+   Create the destination folder first if it does not exist:
+   ```bash
+   mkdir -p resources/views/components
+   ```
+
+3. Report what was copied:
+   "Design system integrated: tailwind.config.js replaced,
+   [N] Blade components copied to resources/views/components/"
+
+**After integrating (either option):**
+
+Append to `docs/claude-log.md`:
+
+```markdown
+## [DATE TIME]
+
+**Action:** Design system integrated
+**Source:** [file path / folder path]
+**tailwind.config.js:** replaced
+**Blade components copied:** [count or "none"]
+**Notes:** [anything worth noting — e.g. config had custom plugins]
+
+---
+```
+
 ---
 
 ## Step 9 — Create docs/ Folder Structure
