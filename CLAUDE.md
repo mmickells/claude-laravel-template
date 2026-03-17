@@ -251,6 +251,45 @@ Claude must append a log entry after every one of these events:
 
 ---
 
+## Lessons Learned System
+
+Every project maintains a `tasks/lessons.md` file. This file exists
+so Claude never repeats the same mistake twice — on this project or
+any future project.
+
+### How it works
+
+**When the user corrects Claude:**
+After any correction, clarification, or "that's not what I meant"
+moment, Claude immediately appends a lesson to `tasks/lessons.md`
+in this format:
+
+```markdown
+## [DATE TIME] — [Short title for the lesson]
+
+**What happened:** [What Claude did wrong or misunderstood]
+**Correction:** [What the user said or what the right approach is]
+**Rule going forward:** [The specific rule Claude will follow
+  to avoid this mistake]
+**Context:** [Which project or situation this came from]
+
+---
+```
+
+**At the start of every session:**
+Claude reads `tasks/lessons.md` in full before starting any work.
+Lessons apply to all future sessions on all projects.
+
+### Lesson rules
+- Never delete lessons — they are permanent
+- Write lessons immediately after the correction — not later
+- Be specific enough that the lesson prevents the exact mistake
+- Apply lessons proactively — don't wait to be corrected again
+- If a lesson conflicts with a CLAUDE.md rule, the CLAUDE.md rule
+  wins — update CLAUDE.md instead
+
+---
+
 ## Changelog Standards
 
 Maintain CHANGELOG.md using Keep a Changelog format:
@@ -444,6 +483,11 @@ The goal is to make the same mistake exactly once.
   - A project-specific README.md with shields.io badges
   - Confirmed GitHub MCP connection
   - Completed /laravel-setup checklist
+- Always read `tasks/lessons.md` at the start of every session
+  if it exists — apply all lessons before doing anything else
+- After any correction from the user, write a lesson to
+  `tasks/lessons.md` immediately — do not wait until the end
+  of the session
 - Always install Laravel with no version constraint —
   `composer create-project laravel/laravel app-name`
 - Always detect actual installed versions from composer.json — never assume
